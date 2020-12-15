@@ -1,0 +1,10 @@
+<ul class="testimonial-blog">
+    <?php
+    foreach ( $block->getAll() as $item) {
+        echo "<li>".$item->getName()."</li>";
+        echo "<li>".$item->getEmail()."</li>";
+        echo "<li>".$item->getContact()."</li>";
+        echo "<li>".$item->getMessage()."</li>";
+    }
+    ?>
+</ul>
