@@ -34,4 +34,8 @@ class Index extends \Magento\Framework\View\Element\Template
         $collecion = $this->_blog->create();
         return $collecion;
     }
+
+    public function getCreate() {
+            return $this->getUrl('testimonial/blog/create');
+    }
 }

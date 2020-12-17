@@ -1,0 +1,25 @@
+<h3>Testimonial Create Form</h3>
+<div>
+    <form method="post" enctype="multipart/form-data" action="<?= $block->getUrl('testimonial/blog/save')?>">
+        <label for="blog_name">First Name</label>
+        <input type="text" name="blog_name" placeholder="Your name..">
+
+        <label for="blog_email">Email</label>
+        <input type="text" name="blog_email" placeholder="Your email..">
+
+        <label for="blog_designation">Designation</label>
+        <input type="text" name="blog_designation" placeholder="Your designation..">
+
+        <label for="blog_contact">Designation</label>
+        <input type="number" name="blog_contact" placeholder="Your contact..">
+
+        <label for="blog_message">Designation</label>
+        <textarea name="blog_message" rows="10" cols="30" placeholder="This is your message.."></textarea>
+
+        <label class="label" for="image"><span><?php /* @escapeNotVerified */ echo __('Image') ?></span></label>
+        <input name="blog_image" title="<?php /* @escapeNotVerified */ echo __('image') ?>"   type="file" />
+
+        <input type="submit" name="createBtn" value="Submit">
+    </form>
+</div>
+

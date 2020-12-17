@@ -9,6 +9,7 @@
     <module name="AHT_Testimonial" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Catalog"/>
+            <module name="Magento_Widget"/>
         </sequence>
     </module>
 </config>

@@ -1,10 +1,33 @@
-<ul class="testimonial-blog">
-    <?php
-    foreach ( $block->getAll() as $item) {
-        echo "<li>".$item->getName()."</li>";
-        echo "<li>".$item->getEmail()."</li>";
-        echo "<li>".$item->getContact()."</li>";
-        echo "<li>".$item->getMessage()."</li>";
-    }
-    ?>
-</ul>
+<p class="testimonial-blog-create">
+    <a href="<?php echo $block->getCreate(); ?>">Create New Blog</a>
+</p>
+<ol class="testimonial-blog">
+        <?php
+        foreach ( $block->getAll() as $item) {
+            echo "<li>";
+            echo "<img src=".$block->getBaseUrl()."pub/media/testimonial/index/".$item->getImage().">";
+            echo "<p>".$item->getName()."</p>";
+            echo "<p>".$item->getEmail()."</p>";
+            echo "<p>".$item->getContact()."</p>";
+            echo $item->getMessage();
+            echo "</li>";
+        }
+        ?>
+</ol>
+<script>
+    require([
+        'jquery',
+        'slick'
+    ], function ($) {
+        $(document).ready(function () {
+            $(".testimonial-blog").slick({
+                autoplay: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+            });
+        });
+    });
+</script>
+
