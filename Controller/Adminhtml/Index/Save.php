@@ -49,6 +49,16 @@ class Save extends \Magento\Backend\App\Action
                 if (!isset($data['id'])) {
                     $id = $data['id'];
                     unset($data['created_at']);
+                    if (isset($data['image'])) {
+                        $imageName = $data['image'];
+                    }
+                    if (isset($data['image'][0]['name'])) {
+
+                        $imageName = $data['image'][0]['name'];
+                    }
+                    if ($imageName) {
+                        $this->imageUploader->moveFileFromTmp($imageName);
+                    }
 
                     $blog = $this->blogFactory->create()->load($id);
 
@@ -66,6 +76,9 @@ class Save extends \Magento\Backend\App\Action
                     if (isset($data['image'][0]['name'])) {
 
                         $imageName = $data['image'][0]['name'];
+                    }
+                    if ($imageName) {
+                        $this->imageUploader->moveFileFromTmp($imageName);
                     }
 
                     $blog = $this->blogFactory->create();

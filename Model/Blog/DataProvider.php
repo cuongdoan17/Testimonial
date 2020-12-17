@@ -15,7 +15,7 @@ use Magento\Framework\Filesystem;
 class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
 {
     /**
-     * @var \AHT\Testimonial\Model\ResourceModel\Blog\Collection
+     * @var \AHT\Testimonial\Model\ResourceModel\Blog\CollectionFactory
      */
     protected $collection;
 
@@ -34,6 +34,7 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
      */
     private $fileInfo;
 
+    protected $_storeManager;
     /**
      * Constructor
      *
@@ -52,12 +53,14 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         $requestFieldName,
         CollectionFactory $testimonialCollecionFactory,
         DataPersistorInterface $dataPersistor,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         array $meta = [],
         array $data = [],
         PoolInterface $pool = null
     ) {
         $this->collection = $testimonialCollecionFactory->create();
         $this->dataPersistor = $dataPersistor;
+        $this->_storeManager = $storeManager;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
     }
 
@@ -87,28 +90,28 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
 
         return $this->loadedData;
     }
-
     /**
      * Converts image data to acceptable for rendering format
      *
-     * @param \PHPCuong\BannerSlider\Model\Banner $banner
-     * @return \PHPCuong\BannerSlider\Model\Banner $banner
+     * @param \AHT\Testimonial\Model\Blog $testimonial
+     * @return \AHT\Testimonial\Model\Blog $testimonial
      */
-    private function convertValues($banner)
+    private function convertValues(\AHT\Testimonial\Model\Blog $testimonial)
     {
-        $fileName = $banner->getImage();
+        $fileName = $testimonial->getImage();
+
         $image = [];
         if ($this->getFileInfo()->isExist($fileName)) {
             $stat = $this->getFileInfo()->getStat($fileName);
             $mime = $this->getFileInfo()->getMimeType($fileName);
             $image[0]['name'] = $fileName;
-            $image[0]['url'] = $banner->getImageUrl();
+            $image[0]['url'] = $this->_storeManager->getStore()->getBaseUrl()."pub/media/testimonial/tmp/index/".$fileName;
             $image[0]['size'] = isset($stat) ? $stat['size'] : 0;
             $image[0]['type'] = $mime;
         }
-        $banner->setImage($image);
+        $testimonial->setImage($image);
 
-        return $banner;
+        return $testimonial;
     }
 
     /**
