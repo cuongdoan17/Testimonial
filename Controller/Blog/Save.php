@@ -5,6 +5,7 @@ namespace AHT\Testimonial\Controller\Blog;
 
 
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\Filesystem;
 
 class Save extends \Magento\Framework\App\Action\Action
 {
@@ -14,6 +15,10 @@ class Save extends \Magento\Framework\App\Action\Action
 
     protected $resultRedirect;
 
+    protected $_fileUploaderFactory;
+
+    protected $_filesystem;
+
     private $_cacheTypeList;
     private $_cacheFrontendPool;
 
@@ -21,12 +26,16 @@ class Save extends \Magento\Framework\App\Action\Action
         Context $context,
         \AHT\Testimonial\Model\BlogFactory $blogFactory,
         \Magento\Framework\Controller\ResultFactory $result,
+        \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory,
         \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
+        \Magento\Framework\Filesystem $filesystem,
         \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool
     )
     {
         $this->_blogFactory = $blogFactory;
         $this->resultRedirect = $result;
+        $this->_fileUploaderFactory = $fileUploaderFactory;
+        $this->_filesystem = $filesystem;
         $this->_cacheTypeList = $cacheTypeList;
         $this->_cacheFrontendPool = $cacheFrontendPool;
 
@@ -36,14 +45,16 @@ class Save extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $post = $this->getRequest()->getPostValue();
+
         $blog = $this->_blogFactory->create();
+
         $data = [
             'name' => $post['blog_name'],
             'email' => $post['blog_email'],
             'designation' => $post['blog_designation'],
             'contact' => $post['blog_contact'],
             'message' => $post['blog_message'],
-//            'image' => $post['blog_image'],
+            'image' => $_FILES['blog_image']['name'],
         ];
 
         if (isset($_POST['createBtn'])){
