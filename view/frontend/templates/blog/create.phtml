@@ -1,25 +1,52 @@
 <h3>Testimonial Create Form</h3>
-<div>
-    <form method="post" enctype="multipart/form-data" action="<?= $block->getUrl('testimonial/blog/save')?>">
-        <label for="blog_name">First Name</label>
-        <input type="text" name="blog_name" placeholder="Your name..">
+<div class="testimonial-create-form">
+    <form class="testimonial-blog-create" method="post" enctype="multipart/form-data" action="<?= $block->getUrl('testimonial/blog/save')?>">
+        <div class="testimonial-blog-create-right">
+            <img id="blah" src="#" alt="your image" />
+        </div>
 
-        <label for="blog_email">Email</label>
-        <input type="text" name="blog_email" placeholder="Your email..">
+        <div class="testimonial-blog-create-left">
+            <label for="blog_name">First Name</label>
+            <input type="text" name="blog_name" placeholder="Your name..">
 
-        <label for="blog_designation">Designation</label>
-        <input type="text" name="blog_designation" placeholder="Your designation..">
+            <label for="blog_email">Email</label>
+            <input type="text" name="blog_email" placeholder="Your email..">
 
-        <label for="blog_contact">Designation</label>
-        <input type="number" name="blog_contact" placeholder="Your contact..">
+            <label for="blog_designation">Designation</label>
+            <input type="text" name="blog_designation" placeholder="Your designation..">
 
-        <label for="blog_message">Designation</label>
-        <textarea name="blog_message" rows="10" cols="30" placeholder="This is your message.."></textarea>
+            <label for="blog_contact">Designation</label>
+            <input type="number" name="blog_contact" placeholder="Your contact..">
 
-        <label class="label" for="blog_image"><span><?php /* @escapeNotVerified */ echo __('Image') ?></span></label>
-        <input name="blog_image" title="<?php /* @escapeNotVerified */ echo __('image') ?>"   type="file" />
+            <label for="blog_message">Designation</label>
+            <textarea name="blog_message" rows="10" cols="30" placeholder="This is your message.."></textarea>
 
-        <input type="submit" name="createBtn" value="Submit">
+            <label class="label" for="blog_image"><span><?php /* @escapeNotVerified */ echo __('Image') ?></span></label>
+            <input type='file' id="imgInp" name="blog_image"/>
+
+            <input type="submit" name="createBtn" class="createBtn" value="Submit">
+        </div>
     </form>
 </div>
+<script>
+    require(['jquery', 'jquery/ui'], function($){
+        $( document ).ready(function() {
+            $("#imgInp").change(function() {
+                readURL(this);
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+        });
+    });
+</script>
 
