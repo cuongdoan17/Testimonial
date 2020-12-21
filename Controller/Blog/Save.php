@@ -52,22 +52,28 @@ class Save extends \Magento\Framework\App\Action\Action
 
         $blog = $this->_blogFactory->create();
 
-        $data = [
-            'id' => $post['blog_id'],
-            'name' => $post['blog_name'],
-            'email' => $post['blog_email'],
-            'designation' => $post['blog_designation'],
-            'contact' => $post['blog_contact'],
-            'message' => $post['blog_message'],
-            'image' => $_FILES['blog_image']['name'],
-        ];
-
         if (isset($_POST['editBtn'])) {
+            $data = [
+                'id' => $post['blog_id'],
+                'name' => $post['blog_name'],
+                'email' => $post['blog_email'],
+                'designation' => $post['blog_designation'],
+                'contact' => $post['blog_contact'],
+                'message' => $post['blog_message'],
+                'image' => $_FILES['blog_image']['name'],
+            ];
             $id = $data['id'];
             $this->_resource->load($blog, $id);
             $blog->setData($data);
         }else if (isset($_POST['createBtn'])) {
-            $data['blog_id'] = null;
+            $data = [
+                'name' => $post['blog_name'],
+                'email' => $post['blog_email'],
+                'designation' => $post['blog_designation'],
+                'contact' => $post['blog_contact'],
+                'message' => $post['blog_message'],
+                'image' => $_FILES['blog_image']['name'],
+            ];
             $blog->setData($data);
         }
 
