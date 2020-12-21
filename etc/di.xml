@@ -28,4 +28,6 @@
             <argument name="resourceModel" xsi:type="string">AHT\Testimonial\Model\ResourceModel\Blog</argument>
         </arguments>
     </virtualType>
+
+    <preference for="AHT\Testimonial\Api\BlogInterface" type="AHT\Testimonial\Model\BlogRepository"/>
 </config>

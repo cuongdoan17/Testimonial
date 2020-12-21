@@ -35,7 +35,20 @@ class Index extends \Magento\Framework\View\Element\Template
         return $collecion;
     }
 
+    public function getById($id) {
+        $id = $this->getRequest()->getParams();
+        var_dump($id);
+        die();
+        $collection = $this->_blog->create();
+        $collection->addFieldToFilter('id', $id);
+        return $collection;
+    }
+
     public function getCreate() {
             return $this->getUrl('testimonial/blog/create');
+    }
+
+    public function getEdit() {
+        return $this->getUrl('testimonial/blog/edit');
     }
 }

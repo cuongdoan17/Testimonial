@@ -18,6 +18,8 @@ class Save extends \Magento\Backend\App\Action
 
     protected $blogFactory;
 
+    protected $_resource;
+
     protected $imageUploader;
 
     protected $date;
@@ -27,6 +29,7 @@ class Save extends \Magento\Backend\App\Action
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor,
         \AHT\Testimonial\Model\BlogFactory $blogFactory,
+        \AHT\Testimonial\Model\ResourceModel\Blog $resouce,
         \AHT\Testimonial\Model\Blog\ImageUploader $imageUploader,
         \Magento\Framework\Stdlib\DateTime\DateTime $date
     )
@@ -34,6 +37,7 @@ class Save extends \Magento\Backend\App\Action
         $this->resultPageFactory = $resultPageFactory;
         $this->dataPersistor = $dataPersistor;
         $this->blogFactory = $blogFactory;
+        $this->_resource = $resouce;
         $this->imageUploader = $imageUploader;
         parent::__construct($context);
         $this->date = $date;
@@ -60,7 +64,8 @@ class Save extends \Magento\Backend\App\Action
                         $this->imageUploader->moveFileFromTmp($imageName);
                     }
 
-                    $blog = $this->blogFactory->create()->load($id);
+                    $blog = $this->blogFactory->create();
+                    $this->_resource->load($blog, $id);
 
                     $data = array_filter($data, function($value) {return $value !== ''; });
 

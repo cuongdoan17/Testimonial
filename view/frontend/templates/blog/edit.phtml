@@ -1,0 +1,61 @@
+<h3>Testimonial Edit Form</h3>
+<?php
+    $post = $block->getById();
+?>
+
+<div class="testimonial-create-form">
+    <form class="testimonial-blog-create" method="post" enctype="multipart/form-data" action="<?= $block->getUrl('testimonial/blog/save')?>">
+        <div class="testimonial-blog-create-right">
+            <img id="blah" src="<? echo $block->getBaseUrl()."pub/media/testimonial/index/".$post['image'];?>" alt="your image" class="image-upload"/>
+        </div>
+
+        <div class="testimonial-blog-create-left">
+            <label for="blog_name">First Name</label>
+            <input type="text" name="blog_name" value="<? echo $post['name'];?>">
+
+            <label for="blog_email">Email</label>
+            <input type="text" name="blog_email" value="<? echo $post['email'];?>">
+
+            <label for="blog_designation">Designation</label>
+            <input type="text" name="blog_designation" value="<? echo $post['designation'];?>">
+
+            <label for="blog_contact">Contact</label>
+            <input type="number" name="blog_contact" value="<? echo $post['contact'];?>">
+
+            <label for="blog_message">Message</label>
+            <textarea name="blog_message" rows="10" cols="30"><? echo strip_tags($post['message']);?></textarea>
+
+            <input type="hidden" name="blog_id" value="<? echo $post['id'];?>">
+
+            <input type="submit" name="editBtn" class="editBtn" value="Edit">
+        </div>
+    </form>
+</div>
+<script>
+    require(['jquery', 'jquery/ui'], function($){
+        $( document ).ready(function() {
+            // Upload Image
+            $('.testimonial-blog-create-right').click(() => {
+                const inputFile = document.createElement('input');
+                inputFile.setAttribute('type', 'file');
+                inputFile.setAttribute('name', 'blog_image');
+                inputFile.setAttribute('class', 'd-none');
+                inputFile.click();
+                $('.testimonial-blog-create-right').append(inputFile);
+                inputFile.addEventListener('change', (e) => {
+                    if(inputFile.files.length > 0) {
+                        const file = inputFile.files[0];
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            $('.image-upload').attr('src', e.target.result);
+                            // $('.avatar-icon-plus').addClass('d-none');
+                            // $('input[type="file"]').addClass('d-none');
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+        });
+    });
+</script>
+

@@ -10,6 +10,7 @@
             echo "<p>".$item->getEmail()."</p>";
             echo "<p>".$item->getContact()."</p>";
             echo $item->getMessage();
+            echo "<a href=".$block->getBaseUrl()."testimonial/blog/edit/id/".$item->getId().">Edit</a>";
             echo "</li>";
         }
         ?>

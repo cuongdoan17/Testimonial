@@ -11,6 +11,8 @@ class Save extends \Magento\Framework\App\Action\Action
 {
     protected $_blogFactory;
 
+    protected $_resource;
+
     protected $_pageFactory;
 
     protected $resultRedirect;
@@ -25,6 +27,7 @@ class Save extends \Magento\Framework\App\Action\Action
     public function __construct(
         Context $context,
         \AHT\Testimonial\Model\BlogFactory $blogFactory,
+        \AHT\Testimonial\Model\ResourceModel\Blog $resource,
         \Magento\Framework\Controller\ResultFactory $result,
         \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory,
         \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
@@ -33,6 +36,7 @@ class Save extends \Magento\Framework\App\Action\Action
     )
     {
         $this->_blogFactory = $blogFactory;
+        $this->_resource = $resource;
         $this->resultRedirect = $result;
         $this->_fileUploaderFactory = $fileUploaderFactory;
         $this->_filesystem = $filesystem;
@@ -49,6 +53,7 @@ class Save extends \Magento\Framework\App\Action\Action
         $blog = $this->_blogFactory->create();
 
         $data = [
+            'id' => $post['blog_id'],
             'name' => $post['blog_name'],
             'email' => $post['blog_email'],
             'designation' => $post['blog_designation'],
@@ -57,10 +62,16 @@ class Save extends \Magento\Framework\App\Action\Action
             'image' => $_FILES['blog_image']['name'],
         ];
 
-        if (isset($_POST['createBtn'])){
+        if (isset($_POST['editBtn'])) {
+            $id = $data['id'];
+            $this->_resource->load($blog, $id);
             $blog->setData($data);
-            $blog->save();
+        }else if (isset($_POST['createBtn'])) {
+            $data['blog_id'] = null;
+            $blog->setData($data);
         }
+
+        $blog->save($data);
 
         $types = array('config','layout','block_html','collections','reflection','db_ddl','compiled_config','eav','config_integration','config_integration_api','full_page','translate','config_webservice','vertex');
         foreach ($types as $type) {
