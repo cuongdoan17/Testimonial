@@ -5,40 +5,57 @@ namespace AHT\Testimonial\Controller\Blog;
 
 
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\Filesystem;
 
 class Save extends \Magento\Framework\App\Action\Action
 {
+    /**
+     * @var \AHT\Testimonial\Model\BlogFactory
+     */
     protected $_blogFactory;
 
+    /**
+     * @var \AHT\Testimonial\Model\ResourceModel\Blog
+     */
     protected $_resource;
 
     protected $_pageFactory;
 
     protected $resultRedirect;
 
-    protected $_fileUploaderFactory;
-
-    protected $_filesystem;
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    protected $_storeManager;
 
     private $_cacheTypeList;
     private $_cacheFrontendPool;
 
+    /**
+     * Save constructor.
+     * @param Context $context
+     * @param \AHT\Testimonial\Model\BlogFactory $blogFactory
+     * @param \AHT\Testimonial\Model\ResourceModel\Blog $resource
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Controller\ResultFactory $result
+     * @param \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList
+     * @param \Magento\Framework\Filesystem $filesystem
+     * @param \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool
+     */
     public function __construct(
         Context $context,
         \AHT\Testimonial\Model\BlogFactory $blogFactory,
         \AHT\Testimonial\Model\ResourceModel\Blog $resource,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Controller\ResultFactory $result,
-        \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory,
         \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
         \Magento\Framework\Filesystem $filesystem,
         \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool
     )
     {
         $this->_blogFactory = $blogFactory;
+        $this->_storeManager = $storeManager;
         $this->_resource = $resource;
         $this->resultRedirect = $result;
-        $this->_fileUploaderFactory = $fileUploaderFactory;
         $this->_filesystem = $filesystem;
         $this->_cacheTypeList = $cacheTypeList;
         $this->_cacheFrontendPool = $cacheFrontendPool;

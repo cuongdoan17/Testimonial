@@ -29,5 +29,5 @@
         </arguments>
     </virtualType>
 
-    <preference for="AHT\Testimonial\Api\BlogInterface" type="AHT\Testimonial\Model\BlogRepository"/>
+<!--    <preference for="AHT\Testimonial\Api\BlogInterface" type="AHT\Testimonial\Model\BlogRepository"/>-->
 </config>
