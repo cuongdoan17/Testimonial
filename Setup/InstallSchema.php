@@ -86,14 +86,14 @@ class   InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             $table = $installer->getConnection()
                 ->newTable($installer->getTable(  'aht_blog_author'))
                 ->addColumn(
-                    'id',
+                    'author_id',
                     \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                     null,
                     ['identity'=>true, 'nullable'=>false, 'primary'=>true,'unsigned' => true],
                     'Author ID'
                 )
                 ->addColumn(
-                    'name',
+                    'author_name',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
                     [
@@ -102,7 +102,7 @@ class   InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                     'Author Name'
                 )
                 ->addColumn(
-                    'email',
+                    'author_email',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
                     [
@@ -150,12 +150,12 @@ class   InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 ->addForeignKey(
                     $setup->getFkName(
                         'aht_blog_author',
-                        'id',
+                        'author_id',
                         'aht_author_post',
                         'author_id'),
                     'author_id',
                     $setup->getTable('aht_blog_author'),
-                    'id',
+                    'author_id',
                     \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
                 )
                 ->setComment(

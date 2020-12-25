@@ -37,8 +37,6 @@ class Index extends \Magento\Framework\View\Element\Template
 
     public function getById($id) {
         $id = $this->getRequest()->getParams();
-        var_dump($id);
-        die();
         $collection = $this->_blog->create();
         $collection->addFieldToFilter('id', $id);
         return $collection;

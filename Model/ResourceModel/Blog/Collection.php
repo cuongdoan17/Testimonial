@@ -19,4 +19,33 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         $this->_init('AHT\Testimonial\Model\Blog', 'AHT\Testimonial\Model\ResourceModel\Blog');
     }
+
+    protected function _initSelect()
+    {
+//        $this->addFilterToMap('id','aht_testimonial_blog.id');
+
+        $this->getSelect()
+
+            ->from(['aht_testimonial_blog' => $this->getMainTable()])
+
+            ->join('aht_author_post',
+
+                'aht_testimonial_blog.id = aht_author_post.post_id',
+
+                [
+
+                    'author_id'
+
+                ])->join('aht_blog_author',
+
+                'aht_author_post.author_id = aht_blog_author.author_id',
+
+                [
+
+                    'author_name',
+                    'author_email'
+
+                ]);
+        return $this;
+    }
 }

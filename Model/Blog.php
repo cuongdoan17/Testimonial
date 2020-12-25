@@ -28,4 +28,12 @@ class Blog extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
 
         return $values;
     }
+
+    public function getAuthorName()
+
+    {
+
+        return $this->getData('author_name');
+
+    }
 }

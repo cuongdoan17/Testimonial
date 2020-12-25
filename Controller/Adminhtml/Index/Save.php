@@ -48,10 +48,9 @@ class Save extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
         $date = $this->date->gmtDate();
-
+        $id = $data['id'];
             try{
                 if (!isset($data['id'])) {
-                    $id = $data['id'];
                     unset($data['created_at']);
                     if (isset($data['image'])) {
                         $imageName = $data['image'];
@@ -104,7 +103,7 @@ class Save extends \Magento\Backend\App\Action
             {
                 $this->messageManager->addError($e->getMessage());
                 $this->_objectManager->get('Magento\Backend\Model\Session')->setFormData($data);
-                return $resultRedirect->setPath('*/*/edit', ['id' => $blog->getId()]);
+                return $resultRedirect->setPath('*/*/edit', ['id' => $id]);
             }
 
         return $resultRedirect->setPath('*/*/');
