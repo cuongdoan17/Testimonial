@@ -8,26 +8,21 @@ class Blog extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
 {
     const CACHE_TAG = 'aht_testimonial_blog';
 
-    protected
-    $_cacheTag = 'aht_testimonial_blog';
+    protected $_cacheTag = 'aht_testimonial_blog';
 
-    protected
-    $_eventPrefix = 'aht_testimonial_blog';
+    protected $_eventPrefix = 'aht_testimonial_blog';
 
-    protected
-    function _construct()
+    protected function _construct()
     {
         $this->_init('AHT\Testimonial\Model\ResourceModel\Blog');
     }
 
-    public
-    function getIdentities()
+    public function getIdentities()
     {
         return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
-    public
-    function getDefaultValues()
+    public function getDefaultValues()
     {
         $values = [];
 
