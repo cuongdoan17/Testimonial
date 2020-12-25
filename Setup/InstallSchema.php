@@ -69,13 +69,6 @@ class   InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                     'Image'
                 )
                 ->addColumn(
-                    'post_id',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    11,
-                    ['unsigned' => true, 'nullable'=>false],
-                    'Foreign Key'
-                )
-                ->addColumn(
                     'created_at',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
                     null,
@@ -116,13 +109,6 @@ class   InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                         'nullable'=>false
                     ],
                     'Author Email'
-                )
-                ->addColumn(
-                    'author_id',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    11,
-                    ['unsigned' => true, 'nullable'=>false],
-                    'Foreign Key'
                 )
                 ->setComment('Blog Author');
             $setup->getConnection()->createTable($table);
