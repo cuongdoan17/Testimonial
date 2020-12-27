@@ -47,6 +47,8 @@ class Save extends \Magento\Backend\App\Action
     {
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
+        var_dump($data);
+        die();
         $date = $this->date->gmtDate();
         $id = $data['id'];
             try{

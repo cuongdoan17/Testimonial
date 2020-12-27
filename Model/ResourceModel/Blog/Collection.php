@@ -22,28 +22,19 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
 
     protected function _initSelect()
     {
-//        $this->addFilterToMap('id','aht_testimonial_blog.id');
+        $this->addFilterToMap('id','aht_testimonial_blog.id');
 
         $this->getSelect()
 
             ->from(['aht_testimonial_blog' => $this->getMainTable()])
 
-            ->join('aht_author_post',
+            ->join('aht_blog_author',
 
-                'aht_testimonial_blog.id = aht_author_post.post_id',
-
-                [
-
-                    'author_id'
-
-                ])->join('aht_blog_author',
-
-                'aht_author_post.author_id = aht_blog_author.author_id',
+                'aht_testimonial_blog.author_id = aht_blog_author.author_id',
 
                 [
 
-                    'author_name',
-                    'author_email'
+                    'author_name'
 
                 ]);
         return $this;

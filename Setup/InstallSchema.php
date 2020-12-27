@@ -69,6 +69,24 @@ class   InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                     'Image'
                 )
                 ->addColumn(
+                    'author_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    11,
+                    ['unsigned' => true, 'nullable'=>false],
+                    'Author Foreignkey'
+                )
+                ->addForeignKey(
+                    $setup->getFkName(
+                        'aht_testimonial_blog',
+                        'author_id',
+                        'aht_blog_author',
+                        'author_id'),
+                    'author_id',
+                    $setup->getTable('aht_blog_author'),
+                    'author_id',
+                    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+                )
+                ->addColumn(
                     'created_at',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
                     null,
@@ -111,55 +129,6 @@ class   InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                     'Author Email'
                 )
                 ->setComment('Blog Author');
-            $setup->getConnection()->createTable($table);
-
-            $table = $installer->getConnection()
-                ->newTable($installer->getTable(  'aht_author_post'))
-                ->addColumn(
-                    'id',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    11,
-                    ['identity'=>true, 'nullable'=>false, 'primary'=>true,'unsigned' => true],
-                    'ID'
-                )
-                ->addColumn(
-                    'post_id',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    11,
-                    ['unsigned' => true, 'nullable'=>false],
-                    'Post Id'
-                )
-                ->addColumn(
-                    'author_id',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    11,
-                    ['unsigned' => true, 'nullable'=>false],
-                    'Author Id'
-                )
-                ->addForeignKey(
-                    $setup->getFkName(
-                        'aht_testimonial_blog',
-                        'id',
-                        'aht_author_post',
-                        'post_id'),
-                    'post_id',
-                    $setup->getTable('aht_testimonial_blog'),
-                    'id',
-                    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
-                )
-                ->addForeignKey(
-                    $setup->getFkName(
-                        'aht_blog_author',
-                        'author_id',
-                        'aht_author_post',
-                        'author_id'),
-                    'author_id',
-                    $setup->getTable('aht_blog_author'),
-                    'author_id',
-                    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
-                )
-                ->setComment(
-                    'Relationship');
             $setup->getConnection()->createTable($table);
         }
 

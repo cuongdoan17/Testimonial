@@ -24,21 +24,13 @@ class Blog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 
             ->where($field . '=?', $value)
 
-            ->joinRight('aht_author_post',
+            ->joinRight('aht_blog_author',
 
-                'aht_testimonial_blog.id = aht_author_post.post_id',
-
-                [
-
-                    'author_id'
-
-                ])->joinRight('aht_blog_author',
-
-                'aht_author_post.author_id = aht_blog_author.author_id',
+                'aht_testimonial_blog.author_id = aht_blog_author.post_id',
 
                 [
 
-                    'author_name',
+                    'auhtor_name',
                     'author_email'
 
                 ]);
