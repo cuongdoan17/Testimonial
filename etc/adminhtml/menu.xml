@@ -18,5 +18,14 @@
             sortOrder="10"
             parent="AHT_Testimonial::testimonial"
         />
+        <add
+            id ="AHT_Testimonial::author"
+            resource="AHT_Testimonial::author"
+            title="Testimonial Author"
+            action="testimonial/author/index"
+            module="AHT_Testimonial"
+            sortOrder="10"
+            parent="AHT_Testimonial::testimonial"
+        />
     </menu>
 </config>

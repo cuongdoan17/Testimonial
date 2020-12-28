@@ -135,6 +135,7 @@
                 <item name="config" xsi:type="array">
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">text</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">contact</item>
                     <item name="dataScope" xsi:type="string">email</item>
@@ -152,6 +153,7 @@
                 <item name="config" xsi:type="array">
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">text</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">contact</item>
                     <item name="dataScope" xsi:type="string">comment</item>
@@ -184,7 +186,7 @@
         <column name="author_id" class="AHT\Testimonial\Ui\Component\Listing\Column\Author">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
                     <item name="label" translate="true" xsi:type="string">Author</item>
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
@@ -198,7 +200,7 @@
                 <item name="config" xsi:type="array">
                     <item name="resizeEnabled" xsi:type="boolean">false</item>
                     <item name="resizeDefaultWidth" xsi:type="string">107</item>
-                    <item name="sortOrder" xsi:type="number">999</item>
+                    <item name="sortOrder" xsi:type="number">90</item>
                     <item name="indexField" xsi:type="string">id</item>
                 </item>
             </argument>

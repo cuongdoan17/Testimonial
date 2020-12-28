@@ -5,6 +5,7 @@
             <resource id="Magento_Backend::admin">
                 <resource id="AHT_Testimonial::testimonial" title="Testimonial" sortOrder="50">
                     <resource id="AHT_Testimonial::index" title="Index" sortOrder="10"/>
+                    <resource id="AHT_Testimonial::author" title="Testimonial Author" sortOrder="20"/>
                 </resource>
             </resource>
         </resources>
