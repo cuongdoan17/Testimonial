@@ -149,14 +149,14 @@
             </formElements>
         </field>
 
-        <field name="author_id" formElement="select">
+        <field name="author_id">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">AHT\Testimonial\Model\Source\AuthorSelect</item>
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string" translate="true">Author:</item>
                     <item name="dataType" xsi:type="string">number</item>
                     <item name="formElement" xsi:type="string">select</item>
-                    <item name="dataScope" xsi:type="string">status</item>
+                    <item name="dataScope" xsi:type="string">author_id</item>
                     <item name="sortOrder" xsi:type="number">130</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">false</item>

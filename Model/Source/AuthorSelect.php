@@ -24,6 +24,8 @@ class AuthorSelect implements \Magento\Framework\Option\ArrayInterface
                 'label' => $item['author_name'],
             ];
         }
+//        var_dump($result);
+//        die();
         return $result;
     }
 }

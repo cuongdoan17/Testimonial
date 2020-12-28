@@ -181,12 +181,24 @@
             </argument>
         </column>
 
+        <column name="author_id" class="AHT\Testimonial\Ui\Component\Listing\Column\Author">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="label" translate="true" xsi:type="string">Author</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                </item>
+            </argument>
+        </column>
+
         <!-- action columns edit and delete -->
         <actionsColumn name="actions" class="AHT\Testimonial\Ui\Component\Listing\Column\Actions">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="resizeEnabled" xsi:type="boolean">false</item>
                     <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="sortOrder" xsi:type="number">999</item>
                     <item name="indexField" xsi:type="string">id</item>
                 </item>
             </argument>
