@@ -28,4 +28,8 @@
             <argument name="resourceModel" xsi:type="string">AHT\Testimonial\Model\ResourceModel\Blog</argument>
         </arguments>
     </virtualType>
+
+    <!-- API Subscription Mapping -->
+    <preference for='AHT\Testimonial\Api\BlogRepositoryInterface' type='AHT\Testimonial\Model\BlogRepository' />
+    <preference for='AHT\Testimonial\Api\Data\BlogInterface' type='AHT\Testimonial\Model\Blog' />
 </config>

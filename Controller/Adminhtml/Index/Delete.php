@@ -26,9 +26,9 @@ class Delete extends \Magento\Backend\App\Action
     {
         $id = $this->getRequest()->getParam('id');
 
-        $contact = $this->blogFactory->create()->load($id);
+        $blog = $this->blogFactory->create()->load($id);
 
-        if(!$contact)
+        if(!$blog)
         {
             $this->messageManager->addError(__('Unable to process. please, try again.'));
             $resultRedirect = $this->resultRedirectFactory->create();
@@ -36,7 +36,7 @@ class Delete extends \Magento\Backend\App\Action
         }
 
         try{
-            $contact->delete();
+            $blog->delete();
             $this->messageManager->addSuccess(__('Your contact has been deleted !'));
         }
         catch(\Exception $e)

@@ -26,11 +26,11 @@ class Blog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 
             ->joinRight('aht_blog_author',
 
-                'aht_testimonial_blog.author_id = aht_blog_author.post_id',
+                'aht_testimonial_blog.author_id = aht_blog_author.author_id',
 
                 [
 
-                    'auhtor_name',
+                    'author_name',
                     'author_email'
 
                 ]);
