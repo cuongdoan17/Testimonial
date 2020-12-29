@@ -32,9 +32,6 @@ class Index extends \Magento\Framework\View\Element\Template
 
     public function getAll() {
         $collecion = $this->_blog->create();
-
-        print_r($collecion->getData());
-        die;
         return $collecion;
     }
 

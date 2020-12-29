@@ -7,6 +7,7 @@ namespace AHT\Testimonial\Controller\Adminhtml\Index;
 use AHT\Testimonial\Model\Blog\ImageUploader;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\ResponseInterface;
+use Magento\Backend\Model\Session;
 
 class Save extends \Magento\Backend\App\Action
 {
@@ -24,6 +25,12 @@ class Save extends \Magento\Backend\App\Action
 
     protected $date;
 
+    private $_cacheTypeList;
+
+    private $_cacheFrontendPool;
+
+    protected $_session;
+
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
@@ -31,7 +38,10 @@ class Save extends \Magento\Backend\App\Action
         \AHT\Testimonial\Model\BlogFactory $blogFactory,
         \AHT\Testimonial\Model\ResourceModel\Blog $resouce,
         \AHT\Testimonial\Model\Blog\ImageUploader $imageUploader,
-        \Magento\Framework\Stdlib\DateTime\DateTime $date
+        \Magento\Framework\Stdlib\DateTime\DateTime $date,
+        \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
+        \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool,
+        Session $session
     )
     {
         $this->resultPageFactory = $resultPageFactory;
@@ -39,8 +49,11 @@ class Save extends \Magento\Backend\App\Action
         $this->blogFactory = $blogFactory;
         $this->_resource = $resouce;
         $this->imageUploader = $imageUploader;
-        parent::__construct($context);
         $this->date = $date;
+        $this->_cacheTypeList = $cacheTypeList;
+        $this->_cacheFrontendPool = $cacheFrontendPool;
+        $this->_session = $session;
+        parent::__construct($context);
     }
 
     public function execute()
@@ -71,7 +84,7 @@ class Save extends \Magento\Backend\App\Action
                     $blog->setData($data);
                     $blog->save();
                     $this->messageManager->addSuccess(__('Successfully saved the item.'));
-                    $this->_objectManager->get('Magento\Backend\Model\Session')->setFormData(false);
+                    $this->_session->setFormData(false);
                     return $resultRedirect->setPath('*/*/');
                 }else {
                     if (isset($data['image'])) {
@@ -95,16 +108,24 @@ class Save extends \Magento\Backend\App\Action
                     $blog->setData($data);
                     $blog->save();
                     $this->messageManager->addSuccess(__('Successfully saved the item.'));
-                    $this->_objectManager->get('Magento\Backend\Model\Session')->setFormData(false);
+                    $this->_session->setFormData(false);
                     return $resultRedirect->setPath('*/*/');
                 }
             }
             catch(\Exception $e)
             {
                 $this->messageManager->addError($e->getMessage());
-                $this->_objectManager->get('Magento\Backend\Model\Session')->setFormData($data);
+                $this->_session->setFormData($data);
                 return $resultRedirect->setPath('*/*/edit', ['id' => $id]);
             }
+
+        $types = array('config','layout','block_html','collections','reflection','db_ddl','compiled_config','eav','config_integration','config_integration_api','full_page','translate','config_webservice','vertex');
+        foreach ($types as $type) {
+            $this->_cacheTypeList->cleanType($type);
+        }
+        foreach ($this->_cacheFrontendPool as $cacheFrontend) {
+            $cacheFrontend->getBackend()->clean();
+        }
 
         return $resultRedirect->setPath('*/*/');
     }

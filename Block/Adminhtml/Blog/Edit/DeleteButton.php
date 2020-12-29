@@ -5,11 +5,26 @@ namespace AHT\Testimonial\Block\Adminhtml\Blog\Edit;
 
 
 
+use Magento\Backend\Block\Widget\Context;
+use Magento\Cms\Api\BlockRepositoryInterface;
 use Magento\Cms\Block\Adminhtml\Block\Edit\GenericButton;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
+use Magento\Framework\UrlInterface;
 
 class DeleteButton extends GenericButton implements ButtonProviderInterface
 {
+    protected $_urlInterface;
+
+    public function __construct(
+        Context $context,
+        BlockRepositoryInterface $blockRepository,
+        UrlInterface $urlInterface
+    )
+    {
+        $this->_urlInterface = $urlInterface;
+        parent::__construct($context, $blockRepository);
+    }
+
     public function getButtonData()
     {
         return [
@@ -22,8 +37,7 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
 
     public function getDeleteUrl()
     {
-        $urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
-        $url = $urlInterface->getCurrentUrl();
+        $url = $this->_urlInterface->getCurrentUrl();
 
         $parts = explode('/', parse_url($url, PHP_URL_PATH));
 

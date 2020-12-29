@@ -4,7 +4,6 @@
 namespace AHT\Testimonial\Model\Blog;
 
 use AHT\Testimonial\Model\Blog\FileInfo;
-use Magento\Framework\App\ObjectManager;
 
 
 class ImageUploader
@@ -70,6 +69,11 @@ class ImageUploader
     private $fileInfo;
 
     /**
+     * @var FileInfo
+     */
+    protected $_fileInfo;
+
+    /**
      * ImageUploader constructor
      *
      * @param \Magento\MediaStorage\Helper\File\Storage\Database $coreFileStorageDatabase
@@ -87,6 +91,7 @@ class ImageUploader
         \Magento\MediaStorage\Model\File\UploaderFactory $uploaderFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Psr\Log\LoggerInterface $logger,
+        FileInfo $fileInfo,
         $baseTmpPath = 'testimonial/tmp/index',
         $basePath = 'testimonial/index',
         $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png']
@@ -98,6 +103,7 @@ class ImageUploader
         $this->logger = $logger;
         $this->baseTmpPath = $baseTmpPath;
         $this->basePath = $basePath;
+        $this->_fileInfo = $fileInfo;
         $this->allowedExtensions = $allowedExtensions;
     }
 
@@ -198,7 +204,7 @@ class ImageUploader
         $baseTmpImagePath = $this->getFilePath($baseTmpPath, $imageName);
 
         try {
-            if ($this->getFileInfo()->isExist($imageName, $this->baseTmpPath)) {
+            if ($this->_fileInfo->isExist($imageName, $this->baseTmpPath)) {
                 $this->coreFileStorageDatabase->copyFile(
                     $baseTmpImagePath,
                     $baseImagePath
@@ -215,21 +221,6 @@ class ImageUploader
         }
 
         return $imageName;
-    }
-
-    /**
-     * Get FileInfo instance
-     *
-     * @return FileInfo
-     *
-     * @deprecated 101.1.0
-     */
-    private function getFileInfo()
-    {
-        if ($this->fileInfo === null) {
-            $this->fileInfo = ObjectManager::getInstance()->get(FileInfo::class);
-        }
-        return $this->fileInfo;
     }
 
     /**
@@ -300,8 +291,8 @@ class ImageUploader
             $basePath = $this->getBaseTmpPath();
         }
 
-        if ($this->getFileInfo()->isExist($imageName, $basePath)) {
-            $this->getFileInfo()->deleteFile($imageName, $basePath);
+        if ($this->_fileInfo->isExist($imageName, $basePath)) {
+            $this->_fileInfo->deleteFile($imageName, $basePath);
         }
     }
 }

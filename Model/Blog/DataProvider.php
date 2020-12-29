@@ -8,7 +8,6 @@ use AHT\Testimonial\Model\ResourceModel\Blog\CollectionFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 
-use Magento\Framework\App\ObjectManager;
 use AHT\Testimonial\Model\Blog\FileInfo;
 use Magento\Framework\Filesystem;
 
@@ -35,6 +34,8 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
     private $fileInfo;
 
     protected $_storeManager;
+
+    protected $_FileInfo;
     /**
      * Constructor
      *
@@ -54,6 +55,7 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         CollectionFactory $testimonialCollecionFactory,
         DataPersistorInterface $dataPersistor,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
+        FileInfo $FileInfo,
         array $meta = [],
         array $data = [],
         PoolInterface $pool = null
@@ -61,6 +63,7 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         $this->collection = $testimonialCollecionFactory->create();
         $this->dataPersistor = $dataPersistor;
         $this->_storeManager = $storeManager;
+        $this->_FileInfo = $FileInfo;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
     }
 
@@ -101,9 +104,9 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         $fileName = $testimonial->getImage();
 
         $image = [];
-        if ($this->getFileInfo()->isExist($fileName)) {
-            $stat = $this->getFileInfo()->getStat($fileName);
-            $mime = $this->getFileInfo()->getMimeType($fileName);
+        if ($this->_FileInfo->isExist($fileName)) {
+            $stat = $this->_FileInfo->getStat($fileName);
+            $mime = $this->_FileInfo->getMimeType($fileName);
             $image[0]['name'] = $fileName;
             $image[0]['url'] = $this->_storeManager->getStore()->getBaseUrl()."pub/media/testimonial/tmp/index/".$fileName;
             $image[0]['size'] = isset($stat) ? $stat['size'] : 0;
@@ -112,20 +115,5 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         $testimonial->setImage($image);
 
         return $testimonial;
-    }
-
-    /**
-     * Get FileInfo instance
-     *
-     * @return FileInfo
-     *
-     * @deprecated 101.1.0
-     */
-    private function getFileInfo()
-    {
-        if ($this->fileInfo === null) {
-            $this->fileInfo = ObjectManager::getInstance()->get(FileInfo::class);
-        }
-        return $this->fileInfo;
     }
 }
