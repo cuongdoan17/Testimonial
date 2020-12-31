@@ -1,16 +1,16 @@
 <?php
 
 
-namespace AHT\Testimonial\Controller\Adminhtml\Index;
+namespace AHT\Testimonial\Controller\Adminhtml\Author;
 
 
-use Magento\Framework\App\Action\HttpPostActionInterface;
-use Magento\Framework\Controller\ResultFactory;
+use AHT\Testimonial\Model\ResourceModel\Author\CollectionFactory;
+use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
-use AHT\Testimonial\Model\ResourceModel\Blog\CollectionFactory;
 
-class MassDelete extends \Magento\Backend\App\Action
+class MassDelete extends Action
 {
     /**
      * Authorization level of a basic admin session

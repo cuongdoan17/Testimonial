@@ -2,14 +2,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">aht_testimonial_blog_listing.aht_testimonial_listing_data_source</item>
-            <item name="deps" xsi:type="string">aht_testimonial_blog_listing.aht_testimonial_listing_data_source</item>
+            <item name="provider" xsi:type="string">aht_testimonial_author_listing.aht_testimonial_author_listing_data_source</item>
+            <item name="deps" xsi:type="string">aht_testimonial_author_listing.aht_testimonial_author_listing_data_source</item>
         </item>
-        <item name="spinner" xsi:type="string">aht_testimonial_columns</item>
+        <item name="spinner" xsi:type="string">aht_testimonial_author_columns</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
                 <item name="name" xsi:type="string">add</item>
-                <item name="label" xsi:type="string" translate="true">Add New Blog</item>
+                <item name="label" xsi:type="string" translate="true">Add New Author</item>
                 <item name="class" xsi:type="string">primary</item>
                 <item name="url" xsi:type="string">*/*/create</item>
             </item>
@@ -18,15 +18,15 @@
     <dataSource name="nameOfDataSource">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
-            <argument name="name" xsi:type="string">aht_testimonial_listing_data_source</argument>
-            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="name" xsi:type="string">aht_testimonial_author_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">author_id</argument>
             <argument name="requestFieldName" xsi:type="string">id</argument>
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
                     <item name="update_url" xsi:type="url" path="mui/index/render"/>
                     <item name="storageConfig" xsi:type="array">
-                        <item name="indexField" xsi:type="string">id</item>
+                        <item name="indexField" xsi:type="string">author_id</item>
                     </item>
                 </item>
             </argument>
@@ -50,12 +50,12 @@
                     </filters>
                 </templates>
             </settings>
-            <filterSelect name="id" provider="${ $.parentName }">
+            <filterSelect name="author_id" provider="${ $.parentName }">
                 <settings>
                     <captionValue>0</captionValue>
                     <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
                     <label translate="true">Store View</label>
-                    <dataScope>id</dataScope>
+                    <dataScope>author_id</dataScope>
                     <imports>
                         <link name="visible">componentType = column, index = ${ $.index }:visible</link>
                     </imports>
@@ -69,7 +69,7 @@
                         <message translate="true">Are you sure you want to delete selected items?</message>
                         <title translate="true">Delete items</title>
                     </confirm>
-                    <url path="testimonial/index/massDelete"/>
+                    <url path="testimonial/author/massDelete"/>
                     <type>delete</type>
                     <label translate="true">Delete</label>
                 </settings>
@@ -77,17 +77,17 @@
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
-    <columns name="aht_testimonial_columns">
+    <columns name="aht_testimonial_author_columns">
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="resizeEnabled" xsi:type="boolean">false</item>
                     <item name="resizeDefaultWidth" xsi:type="string">55</item>
-                    <item name="indexField" xsi:type="string">id</item>
+                    <item name="indexField" xsi:type="string">author_id</item>
                 </item>
             </argument>
         </selectionsColumn>
-        <column name="id">
+        <column name="author_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">textRange</item>
@@ -96,7 +96,7 @@
                 </item>
             </argument>
         </column>
-        <column name="name">
+        <column name="author_name">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -105,7 +105,7 @@
                 </item>
             </argument>
         </column>
-        <column name="email">
+        <column name="author_email">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -115,38 +115,7 @@
             </argument>
         </column>
 
-        <column name="designation">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Designation</item>
-                </item>
-            </argument>
-        </column>
-
-        <column name="contact">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Contact</item>
-                </item>
-            </argument>
-        </column>
-
-        <column name="author_id" class="AHT\Testimonial\Ui\Component\Listing\Column\Author">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="sortOrder" xsi:type="number">40</item>
-                    <item name="label" translate="true" xsi:type="string">Author</item>
-                    <item name="dataType" xsi:type="string">select</item>
-                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
-                </item>
-            </argument>
-        </column>
-
-        <actionsColumn name="actions" class="AHT\Testimonial\Ui\Component\Listing\Column\BlogActions">
+        <actionsColumn name="actions" class="AHT\Testimonial\Ui\Component\Listing\Column\AuthorActions">
             <settings>
                 <indexField>id</indexField>
             </settings>

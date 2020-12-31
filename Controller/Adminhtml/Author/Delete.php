@@ -1,32 +1,34 @@
 <?php
 
 
-namespace AHT\Testimonial\Controller\Adminhtml\Index;
+namespace AHT\Testimonial\Controller\Adminhtml\Author;
 
 
-class Delete extends \Magento\Backend\App\Action
+use Magento\Backend\App\Action;
+
+class Delete extends Action
 {
-    const ADMIN_RESOURCE = 'Index';
+    const ADMIN_RESOURCE = 'Author';
 
     protected $resultPageFactory;
-    protected $blogFactory;
+    protected $authorFactory;
 
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \AHT\Testimonial\Model\BlogFactory $blogFactory
+        \AHT\Testimonial\Model\AuthorFactory $authorFactory
     )
     {
         $this->resultPageFactory = $resultPageFactory;
-        $this->blogFactory = $blogFactory;
+        $this->authorFactory = $authorFactory;
         parent::__construct($context);
     }
 
     public function execute()
     {
-        $id = $this->getRequest()->getParam('id');
+        $id = $this->getRequest()->getParam('author_id');
 
-        $blog = $this->blogFactory->create()->load($id);
+        $blog = $this->authorFactory->create()->load($id);
 
         if(!$blog)
         {
@@ -37,7 +39,7 @@ class Delete extends \Magento\Backend\App\Action
 
         try{
             $blog->delete();
-            $this->messageManager->addSuccess(__('Your blog has been deleted !'));
+            $this->messageManager->addSuccess(__('Your author has been deleted !'));
         }
         catch(\Exception $e)
         {

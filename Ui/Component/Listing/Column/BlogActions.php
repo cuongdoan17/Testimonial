@@ -12,7 +12,7 @@ use Magento\Framework\UrlInterface;
 /**
  * Class to build edit and delete link for each item.
  */
-class Actions extends Column
+class BlogActions extends Column
 {
     protected $urlBuilder;
 

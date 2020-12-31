@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AHT\Testimonial\Block\Adminhtml\Blog\Edit;
+namespace AHT\Testimonial\Block\Adminhtml\Author\Edit;
 
 
 
@@ -28,7 +28,7 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
     public function getButtonData()
     {
         return [
-            'label' => __('Delete Blog'),
+            'label' => __('Delete'),
             'on_click' => 'deleteConfirm(\'' . __('Are you sure you want to delete this blog ?') . '\', \'' . $this->getDeleteUrl() . '\')',
             'class' => 'delete',
             'sort_order' => 20

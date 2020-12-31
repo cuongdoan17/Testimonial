@@ -78,6 +78,7 @@ class Save extends \Magento\Framework\App\Action\Action
                 'contact' => $post['blog_contact'],
                 'message' => $post['blog_message'],
                 'image' => $_FILES['blog_image']['name'],
+                'author_id' => 1
             ];
             $id = $data['id'];
             $this->_resource->load($blog, $id);
@@ -90,6 +91,7 @@ class Save extends \Magento\Framework\App\Action\Action
                 'contact' => $post['blog_contact'],
                 'message' => $post['blog_message'],
                 'image' => $_FILES['blog_image']['name'],
+                'author_id' => 1
             ];
             $blog->setData($data);
         }
