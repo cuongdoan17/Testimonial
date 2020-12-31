@@ -20,7 +20,7 @@
             <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
             <argument name="name" xsi:type="string">aht_testimonial_author_listing_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">author_id</argument>
-            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">author_id</argument>
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
@@ -74,18 +74,45 @@
                     <label translate="true">Delete</label>
                 </settings>
             </action>
+            <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>aht_testimonial_author_listing.aht_testimonial_author_listing.aht_testimonial_author_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="aht_testimonial_author_columns">
+        <settings>
+            <editorConfig>
+                <param name="selectProvider" xsi:type="string">aht_testimonial_author_listing.aht_testimonial_author_listing.aht_testimonial_author_columns.ids</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="indexField" xsi:type="string">author_id</param>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" path="testimonial/author/inlineEdit" xsi:type="url"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">aht_testimonial_author_listing.aht_testimonial_author_listing.aht_testimonial_author_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
         <selectionsColumn name="ids">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="resizeEnabled" xsi:type="boolean">false</item>
-                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
-                    <item name="indexField" xsi:type="string">author_id</item>
-                </item>
-            </argument>
+            <settings>
+                <indexField>author_id</indexField>
+            </settings>
         </selectionsColumn>
         <column name="author_id">
             <argument name="data" xsi:type="array">
@@ -97,27 +124,27 @@
             </argument>
         </column>
         <column name="author_name">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Name</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Author Name</label>
+            </settings>
         </column>
         <column name="author_email">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Email</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Author Email</label>
+            </settings>
         </column>
 
         <actionsColumn name="actions" class="AHT\Testimonial\Ui\Component\Listing\Column\AuthorActions">
             <settings>
-                <indexField>id</indexField>
+                <indexField>author_id</indexField>
             </settings>
         </actionsColumn>
     </columns>

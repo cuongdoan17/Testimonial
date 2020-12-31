@@ -74,10 +74,41 @@
                     <label translate="true">Delete</label>
                 </settings>
             </action>
+            <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>aht_testimonial_blog_listing.aht_testimonial_blog_listing.aht_testimonial_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="aht_testimonial_columns">
+        <settings>
+            <editorConfig>
+                <param name="selectProvider" xsi:type="string">aht_testimonial_blog_listing.aht_testimonial_blog_listing.aht_testimonial_columns.ids</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="indexField" xsi:type="string">id</param>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" path="testimonial/index/inlineEdit" xsi:type="url"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">aht_testimonial_blog_listing.aht_testimonial_blog_listing.aht_testimonial_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -97,53 +128,54 @@
             </argument>
         </column>
         <column name="name">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Name</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Name</label>
+            </settings>
         </column>
         <column name="email">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Email</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Email</label>
+            </settings>
         </column>
 
         <column name="designation">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Designation</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Designation</label>
+            </settings>
         </column>
 
         <column name="contact">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Contact</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>number</editorType>
+                </editor>
+                <label translate="true">Contact</label>
+            </settings>
         </column>
 
         <column name="author_id" class="AHT\Testimonial\Ui\Component\Listing\Column\Author">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="sortOrder" xsi:type="number">40</item>
-                    <item name="label" translate="true" xsi:type="string">Author</item>
-                    <item name="dataType" xsi:type="string">select</item>
-                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
-                </item>
-            </argument>
+            <settings>
+                <options class="AHT\Testimonial\Model\Source\AuthorSelect"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
         </column>
 
         <actionsColumn name="actions" class="AHT\Testimonial\Ui\Component\Listing\Column\BlogActions">
